@@ -14,5 +14,7 @@
 
 class Category < ActiveRecord::Base
   validates_uniqueness_of :name
+  
+  belongs_to :parent, class_name: "Category"
   has_many :articles
 end
