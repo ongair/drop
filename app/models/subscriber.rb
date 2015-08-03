@@ -3,12 +3,13 @@
 # Table name: subscribers
 #
 #  id          :integer          not null, primary key
-#  source      :string(255)
-#  external_id :string(255)
-#  name        :string(255)
-#  metadata    :text
+#  source      :string
+#  external_id :string
+#  name        :string
 #  created_at  :datetime
 #  updated_at  :datetime
+#  provider    :string
+#  uid         :string
 #
 
 class Subscriber < ActiveRecord::Base

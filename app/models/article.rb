@@ -3,17 +3,17 @@
 # Table name: articles
 #
 #  id           :integer          not null, primary key
-#  source       :string(255)
-#  title        :string(255)
+#  source       :string
+#  title        :string
 #  summary      :text
-#  url          :string(255)
-#  article_type :string(255)
+#  url          :string
+#  article_type :string
 #  metadata     :text
 #  created_at   :datetime
 #  updated_at   :datetime
 #  category_id  :integer
-#  external_id  :string(255)
-#  image_url    :string(255)
+#  external_id  :string
+#  image_url    :string
 #
 
 class Article < ActiveRecord::Base

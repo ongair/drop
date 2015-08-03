@@ -16,6 +16,10 @@ gem 'juicer-client'
 gem 'wechat', git: 'https://github.com/ongair/wechat.git'
 gem 'sidekiq'
 gem 'sidetiq'
+gem 'rails_admin', git: 'https://github.com/sferik/rails_admin.git'
+# gem 'ahoy_matey'
+gem 'devise'
+gem 'hierapolis-rails'
 
 
 group :development, :test do
