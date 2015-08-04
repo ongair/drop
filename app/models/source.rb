@@ -7,6 +7,7 @@
 #  active     :boolean          default(FALSE)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  juicer_id  :string
 #
 
 class Source < ActiveRecord::Base

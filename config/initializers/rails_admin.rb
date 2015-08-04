@@ -49,7 +49,7 @@ RailsAdmin.config do |config|
           if params.has_key?(:submit)
             sources = BBC.get_sources
             sources.each do |s|
-              source = Source.find_or_create_by! name: s['name']
+              source = Source.find_or_create_by! name: s['name'], juicer_id: s['id']
             end
             redirect_to back_or_index, notice: "Sources refreshed"
           else
