@@ -11,6 +11,7 @@
 #  metadata    :text
 #  description :text
 #  parent_id   :integer
+#  enabled     :boolean          default(TRUE)
 #
 
 class Category < ActiveRecord::Base
