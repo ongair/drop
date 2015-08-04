@@ -6,7 +6,7 @@ class JuicerWorker
   include Sidetiq::Schedulable
 
   sidekiq_options :queue => :data, :retry => false
-  recurrence { minutely }
+  recurrence { daily }
 
   def perform(last_occurrence, current_occurrence)
 

@@ -19,7 +19,7 @@ gem 'sidetiq'
 gem 'rails_admin', git: 'https://github.com/sferik/rails_admin.git'
 # gem 'ahoy_matey'
 gem 'devise'
-# gem 'hierapolis-rails'
+gem 'shelves'
 
 
 group :development, :test do
