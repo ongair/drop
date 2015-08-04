@@ -21,3 +21,9 @@
 
 en:
   hello: "Hello world"
+  admin:
+    actions: 
+      update_sources:
+        menu: "Update Sources"
+        title: "Update Sources"
+        breadcrumb: "Update Sources"

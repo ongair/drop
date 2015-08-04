@@ -1,3 +1,4 @@
+require 'bbc'
 RailsAdmin.config do |config|
 
   ### Popular gems integration
@@ -30,5 +31,32 @@ RailsAdmin.config do |config|
     ## With an audit adapter, you can add:
     # history_index
     # history_show
+    collection :update_sources do
+      register_instance_option :link_icon do
+        'icon-refresh'
+      end
+
+      register_instance_option :visible? do
+        bindings[:abstract_model].to_s == "Source"
+      end
+
+      register_instance_option :http_methods do
+          [:get, :post]
+      end
+
+      register_instance_option :controller do
+        Proc.new do
+          if params.has_key?(:submit)
+            sources = BBC.get_sources
+            sources.each do |s|
+              source = Source.find_or_create_by! name: s['name']
+            end
+            redirect_to back_or_index, notice: "Sources refreshed"
+          else
+            render "update_sources"
+          end
+        end
+      end
+    end
   end
 end
