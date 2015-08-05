@@ -37,6 +37,10 @@ group :development do
   gem 'rails_apps_pages'
   gem 'rails_layout'
   gem 'annotate'
+  gem 'capistrano', '~> 3.1.0'
+  gem 'capistrano-bundler', '~> 1.1.2'
+  gem 'capistrano-rails', '~> 1.1.3'
+  gem 'capistrano-rvm', github: "capistrano/rvm"
 end
 
 group :development, :test do
