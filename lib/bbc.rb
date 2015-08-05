@@ -36,4 +36,26 @@ class BBC
       raise "Could not retrieve News Sources"
     end
   end
+
+  def self.get_articles keyword="", like_ids=[], published_after
+    begin
+      url = "#{Rails.application.secrets.juicer_api_url}/articles?apikey=#{Rails.application.secrets.juicer_api_key}"
+      
+      sources = Source.active.collect { |source| source.juicer_id }
+      source_params = sources.collect { |s| "sources[]=#{s}" }.join('&')
+
+      url += "&#{source_params}"
+
+      return HTTParty.get(url)
+    rescue
+    end
+  end
+
+  def self.add_param url, key, value
+    if !value.blank?
+      url += "&#{key}=#{value}"
+    end
+    url
+  end
+
 end
