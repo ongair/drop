@@ -43,6 +43,10 @@ group :development do
   gem 'capistrano-rvm', github: "capistrano/rvm"
 end
 
+group :production do
+  gem 'mysql2'
+end
+
 group :development, :test do
   gem 'pry-rails'
   gem 'pry-rescue'
