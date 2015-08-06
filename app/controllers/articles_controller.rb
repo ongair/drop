@@ -26,6 +26,21 @@ class ArticlesController < ApplicationController
     render json: { success: true }
   end
 
+  # POST /articles/search?term=q
+  # search for articles
+  # should do local search for articles as well as perform live search on juicer?
+  def search
+
+    # TODO: Implement elastic search
+    @articles = []
+
+    # TODO
+    # Record search element and tie it to category metadata and sources
+
+    # Render the index view
+    render view: 'index'
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
