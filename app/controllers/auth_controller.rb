@@ -2,6 +2,9 @@ class AuthController < ApplicationController
   # TODO: fix this once front-end is done 
   skip_before_action :verify_authenticity_token 
 
+  # Ensure the subscriber is authenticated
+  before_filter :authenticate_subscriber!, except: [:log_in]
+
   # Works as both a sign in and sign up method
   # by taking the provider and token returned
   # from either FB/TWITTER and the token
@@ -10,6 +13,8 @@ class AuthController < ApplicationController
   # @provider
   # @uid
   # @name
+  # 
+  # POST
   def log_in
     if params.has_key?(:provider) || (params[:provider] != 'facebook' && params[:provider] != 'twitter')
       if params.has_key?(:uid)
@@ -34,6 +39,12 @@ class AuthController < ApplicationController
     else
       render json: { error: "No valid oauth provider was specified" }, status: 422
     end
+  end
+
+  # User preferences for the currently signed in user
+  # GET
+  def preferences
+    @subscriber = current_subscriber
   end
 
 end

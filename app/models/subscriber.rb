@@ -19,5 +19,9 @@ class Subscriber < ActiveRecord::Base
   validates_uniqueness_of :uid
   validates :provider, presence: true  
 
+  has_many :subscriber_categories
+  has_many :categories, through: :subscriber_categories
+
+  # track how often they subscribe
   devise :trackable
 end

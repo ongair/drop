@@ -10,6 +10,7 @@
 #  updated_at  :datetime
 #  metadata    :text
 #  description :text
+#  parent_id   :integer
 #  enabled     :boolean          default(TRUE)
 #
 
