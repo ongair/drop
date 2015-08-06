@@ -47,7 +47,6 @@ class AuthController < ApplicationController
   # User preferences for the currently signed in user
   # GET
   def preferences
-    
   end
 
   # Personalize the current users preferences

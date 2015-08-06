@@ -21,7 +21,7 @@ gem 'rails_admin', git: 'https://github.com/sferik/rails_admin.git'
 # gem 'ahoy_matey'
 gem 'devise'
 gem 'shelves'
-# gem 'omniauth-facebook'
+gem 'rack-cors'
 gem 'sprockets', '2.8'
 
 
