@@ -5,5 +5,6 @@ Rails.application.routes.draw do
   # root to: 'admin'
   root :to => redirect('/admin')
 
-  resources :categories
+  resources :categories, only: [:index]
+  resources :articles, only: [:index, :show]
 end
