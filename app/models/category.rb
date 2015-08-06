@@ -10,13 +10,11 @@
 #  updated_at  :datetime
 #  metadata    :text
 #  description :text
-#  parent_id   :integer
 #  enabled     :boolean          default(TRUE)
 #
 
 class Category < ActiveRecord::Base
   validates_uniqueness_of :name
   
-  belongs_to :parent, class_name: "Category"
   has_many :articles
 end

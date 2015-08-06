@@ -21,7 +21,7 @@ gem 'rails_admin', git: 'https://github.com/sferik/rails_admin.git'
 # gem 'ahoy_matey'
 gem 'devise'
 gem 'shelves'
-# gem 'sprockets', '2.12.4'
+# gem 'omniauth-facebook'
 gem 'sprockets', '2.8'
 
 
@@ -52,5 +52,6 @@ end
 group :development, :test do
   gem 'pry-rails'
   gem 'pry-rescue'
+  gem 'pry-nav'
 end
 

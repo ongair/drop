@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150804100145) do
+ActiveRecord::Schema.define(version: 20150806113447) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "name"
@@ -56,11 +56,11 @@ ActiveRecord::Schema.define(version: 20150804100145) do
     t.datetime "updated_at"
     t.text     "metadata"
     t.text     "description"
-    # t.integer  "parent_id"
+    t.integer  "parent_id"
     t.boolean  "enabled",     default: true
   end
 
-  # add_index "categories", ["parent_id"], name: "index_categories_on_parent_id"
+  add_index "categories", ["parent_id"], name: "index_categories_on_parent_id"
 
   create_table "sources", force: :cascade do |t|
     t.string   "name"
@@ -71,13 +71,16 @@ ActiveRecord::Schema.define(version: 20150804100145) do
   end
 
   create_table "subscribers", force: :cascade do |t|
-    t.string   "source"
-    t.string   "external_id"
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "provider"
     t.string   "uid"
+    t.integer  "sign_in_count"
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
   end
 
 end
