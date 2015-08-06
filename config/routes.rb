@@ -5,5 +5,5 @@ Rails.application.routes.draw do
   # root to: 'admin'
   root :to => redirect('/admin')
 
-  resources :articles, :categories
+  resources :categories
 end
