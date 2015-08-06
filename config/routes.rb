@@ -7,12 +7,15 @@ Rails.application.routes.draw do
   root :to => redirect('/admin')
 
   resources :categories, only: [:index]
+  
+  # Articles
   resources :articles, only: [:index, :show]
+  post 'articles/:id/like' => 'articles#like', as: 'like_article' 
 
   # authentication endpoint
   post "/auth/sign_in" => "auth#log_in", :as => "sign_in"
 
   # preferences endpoints
   get "/auth/preferences", as: 'preferences'
-  post "/auth/personalize"
+  post "/auth/personalize"  
 end
