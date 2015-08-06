@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   # authentication endpoint
   post "/auth/sign_in" => "auth#log_in", :as => "sign_in"
 
-  # preferences endpoint
-  get "/auth/preferences"
+  # preferences endpoints
+  get "/auth/preferences", as: 'preferences'
+  post "/auth/personalize"
 end

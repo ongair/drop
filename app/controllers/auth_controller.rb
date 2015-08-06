@@ -2,6 +2,9 @@ class AuthController < ApplicationController
   # TODO: fix this once front-end is done 
   skip_before_action :verify_authenticity_token 
 
+  # load the current subscriber
+  before_action :set_subscriber, except: [:log_in]
+
   # Ensure the subscriber is authenticated
   before_filter :authenticate_subscriber!, except: [:log_in]
 
@@ -44,7 +47,31 @@ class AuthController < ApplicationController
   # User preferences for the currently signed in user
   # GET
   def preferences
-    @subscriber = current_subscriber
+    
   end
+
+  # Personalize the current users preferences
+  # should be an array category ids
+  # POST
+  def personalize
+    if params.has_key?(:categories)
+      category_ids = params[:categories]
+      
+      SubscriberCategory.where(subscriber: @subscriber).delete_all
+      category_ids.each do |cat_id|
+        category = Category.find(cat_id)
+        SubscriberCategory.create! subscriber: @subscriber, category: category
+      end
+
+      redirect_to preferences_path
+    end
+  end
+
+
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_subscriber
+      @subscriber = current_subscriber
+    end
 
 end
