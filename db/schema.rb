@@ -56,11 +56,11 @@ ActiveRecord::Schema.define(version: 20150804100145) do
     t.datetime "updated_at"
     t.text     "metadata"
     t.text     "description"
-    t.integer  "parent_id"
+    # t.integer  "parent_id"
     t.boolean  "enabled",     default: true
   end
 
-  add_index "categories", ["parent_id"], name: "index_categories_on_parent_id"
+  # add_index "categories", ["parent_id"], name: "index_categories_on_parent_id"
 
   create_table "sources", force: :cascade do |t|
     t.string   "name"
