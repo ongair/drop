@@ -21,7 +21,8 @@ gem 'rails_admin', git: 'https://github.com/sferik/rails_admin.git'
 # gem 'ahoy_matey'
 gem 'devise'
 gem 'shelves'
-gem 'sprockets', '2.12.4'
+# gem 'sprockets', '2.12.4'
+gem 'sprockets', '2.8'
 
 
 group :development, :test do
