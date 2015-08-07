@@ -1,5 +1,5 @@
-json.data
+json.data do
   json.array!(@articles) do |article|
-    json.extract! article, :id, :title, :summary, :url, :created_at, :updated_at, :article_type, :image_url
+    json.extract! article, :id, :title, :summary, :url, :created_at, :updated_at, :external_id
   end
 end
