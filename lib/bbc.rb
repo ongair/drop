@@ -16,6 +16,27 @@ class BBC
       return client.articles({ text: search_term, products: products })
     rescue
       # handle execption
+      raise 'Could not get articles for this category'
+    end
+  end
+
+
+  def self.get_similar_articles cps_id
+    client = Juicer.new(Rails.application.secrets.juicer_api_key)
+    begin
+      
+      # get the ids of similar articles
+      similar_article_summaries_ids = client.similar_articles(cps_id).collect { |summary| summary['cps_id'] }
+
+      # exclude already saved articles
+      similar_article_summaries_ids.reject! { |id| !Article.find_by(external_id: id).nil? }
+
+      # fetch full article metadata from juicer
+      return similar_article_summaries_ids.collect { |id| client.article(id) }
+
+    rescue => e
+      # handle execption
+      raise "Could not get similar articles : #{e}"
     end
   end
 

@@ -3,47 +3,57 @@ require 'bbc'
 
 class JuicerWorker
   include Sidekiq::Worker
-  include Sidetiq::Schedulable
+  # include Sidetiq::Schedulable
 
   sidekiq_options :queue => :data, :retry => false
-  recurrence { daily }
+  # recurrence { daily }
 
-  def perform(last_occurrence, current_occurrence)
+  def perform(category_id)
 
-    logger.info "Searching for juicer data at #{Time.now}"
+    category = Category.find(category_id)
 
-    # juicer = Juicer.new(Rails.application.secrets.juicer_api_key)
+    logger.info "Search for articles in #{category.name}"
 
-    b = BBC.new
+    terms = category.keywords.split(',')
 
-    Category.where(source: "Juicer").each do |category|
-      logger.info "Category is #{category.name}"
+    # the sources we will be searching
+    sources = Source.active.collect{ |s| s.juicer_id }
 
-      products = JSON.parse(category.metadata)
-      keywords = JSON.parse(category.keywords)
+    # does this category have specific sources e.g. Tech
+    category_sources = category.metadata.try(:split, ',')
 
-      keywords.each do |keyword|
-        logger.info "Searching for keyword #{keyword}"
+    sources = category_sources if !category_sources.blank?
 
-        articles = juicer.articles({ text: keyword, product: products, published_after: Time.now.beginning_of_month, recent_first: true })
-        logger.info "Got #{articles.length} articles"
-        if !articles.empty?
+    terms.each do |term|
+      # get the first cut of articles
 
-          articles.each do |article|            
-            is_new = Article.find_by(external_id: article["cps_id"], source: "Juicer").nil?
+      articles = BBC.get_articles term.strip, sources
+      articles.each do |article|
 
-            if is_new
-              metadata = { published: article["published"], product_source: article["source"] }.to_json
-              Article.create! category: category, source: "Juicer", title: article["title"], external_id: article["cps_id"],
-                url: article["url"], image_url: article["image"]["src"], summary: article["description"], metadata: metadata
-            end
+        is_new = Article.find_by(external_id: article["cps_id"]).nil?
+        if is_new
+          
+          new_article = create_article(article, category)
+          # find similar articles
+
+          similar_articles = BBC.get_similar_articles article['cps_id']
+          similar_articles.each do |art|
+            create_article art, category
           end
+        end
 
-        end        
       end
-      metadata = JSON.parse(category.metadata)
-      keywords = JSON.parse(category.keywords)
-      b.create_articles keywords, metadata["sections"], metadata["sources"], Time.now.beginning_of_month, category
-    end
+    end    
   end
+
+  private 
+
+    # Save juicer article to the db
+    def create_article juice_article, category
+      # sometimes image url is nil
+      image = juice_article['image']['src'] if !juice_article['image'].nil?
+      
+      Article.create! category: category, title: juice_article['title'], external_id: juice_article['cps_id'], url: juice_article['url'],
+        image_url: image, summary: juice_article['description']
+    end
 end
