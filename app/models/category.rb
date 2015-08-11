@@ -21,4 +21,8 @@ class Category < ActiveRecord::Base
   
   has_many :articles
   dragonfly_accessor :image
+
+  def image_url
+    image.try(:url)
+  end
 end
