@@ -20,4 +20,6 @@ class Article < ActiveRecord::Base
   # also known as cps_id
   validates_uniqueness_of :external_id
   belongs_to :category
+
+  paginates_per 10
 end
