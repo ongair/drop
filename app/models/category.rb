@@ -12,10 +12,13 @@
 #  description :text
 #  parent_id   :integer
 #  enabled     :boolean          default(TRUE)
+#  image_uid   :string
+#  image_name  :string
 #
 
 class Category < ActiveRecord::Base
   validates_uniqueness_of :name
   
   has_many :articles
+  dragonfly_accessor :image
 end

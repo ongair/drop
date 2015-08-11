@@ -24,6 +24,8 @@ gem 'shelves'
 gem 'rack-cors'
 gem 'sprockets', '2.8'
 gem 'kaminari'
+gem 'dragonfly'
+gem 'dragonfly-s3_data_store'
 
 
 group :development, :test do

@@ -83,3 +83,5 @@ pickle-email-*.html
 /config/application.yml
 /config/secrets.yml
 /config/sidekiq.yml
+
+*.log
