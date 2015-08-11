@@ -1,16 +1,20 @@
 class ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :like]
-  before_filter :authenticate_subscriber!, only: [:like]
+  before_filter :authenticate_subscriber!, only: [:like, :share]
 
   # GET /articles
   # GET /articles.json
   def index
     @articles = Article.all
+
+    # need to figure out which articles that the user
+    # has read
   end
 
   # GET /articles/1
   # GET /articles/1.json
   def show
+    # TODO: include number of likes and shares
   end
 
   # POST /articles/1/like
@@ -24,6 +28,23 @@ class ArticlesController < ApplicationController
     # Send preference to either predicion io or ahoy
 
     render json: { success: true }
+  end
+
+  # POST /articles/1/share
+  # POST /articles/1/share.json
+  #
+  # :id
+  # :provider - think of better name
+  def share
+
+    # TODO:
+    # Record the shares
+
+    render json: { success: true }
+  end
+
+
+  def read
   end
 
   # POST /articles/search?term=q

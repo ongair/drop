@@ -23,6 +23,7 @@ gem 'devise'
 gem 'shelves'
 gem 'rack-cors'
 gem 'sprockets', '2.8'
+gem 'kaminari'
 
 
 group :development, :test do

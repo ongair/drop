@@ -345,6 +345,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   juicer-client
+  kaminari
   mysql2
   pry-nav
   pry-rails

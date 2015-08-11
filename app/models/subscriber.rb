@@ -21,6 +21,7 @@ class Subscriber < ActiveRecord::Base
 
   has_many :subscriber_categories
   has_many :categories, through: :subscriber_categories
+  has_many :article_logs
 
   # track how often they subscribe
   devise :trackable
