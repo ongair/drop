@@ -1,6 +1,6 @@
 class ArticlesController < ApplicationController
   skip_before_action :verify_authenticity_token 
-  before_action :set_article, only: [:show, :like]
+  before_action :set_article, only: [:show, :like, :read]
   before_filter :authenticate_subscriber!, only: [:like, :share]
 
   # GET /articles
@@ -16,6 +16,9 @@ class ArticlesController < ApplicationController
   # GET /articles/1.json
   def show
     # TODO: include number of likes and shares
+
+    log('read')
+
   end
 
   # POST /articles/1/like
@@ -27,6 +30,8 @@ class ArticlesController < ApplicationController
     @subscriber = current_subscriber
     # TODO
     # Send preference to either predicion io or ahoy
+
+    log('like')
 
     render json: { success: true }
   end
@@ -40,6 +45,8 @@ class ArticlesController < ApplicationController
 
     # TODO:
     # Record the shares
+
+    log('share')
 
     render json: { success: true }
   end
@@ -68,5 +75,9 @@ class ArticlesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_article
       @article = Article.find(params[:id])
+    end
+
+    def log type
+      ArticleLog.create! article: @article, subscriber: @subscriber, type: type
     end
 end
