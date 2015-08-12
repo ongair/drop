@@ -1,7 +1,7 @@
 class ArticlesController < ApplicationController
   skip_before_action :verify_authenticity_token 
-  before_action :set_article, only: [:show, :like, :read]
-  before_filter :authenticate_subscriber!, only: [:like, :share]
+  before_action :set_article, only: [:show, :like, :read, :ignore]
+  before_filter :authenticate_subscriber!, only: [:like, :share, :ignore]
 
   # GET /articles
   # GET /articles.json
@@ -47,6 +47,17 @@ class ArticlesController < ApplicationController
     # Record the shares
 
     log('share')
+
+    render json: { success: true }
+  end
+
+  # POST /articles/1/ingore
+  # POST /articles/1/ingore.json
+  #
+  # :id
+  def ignore
+
+    log('ignore')
 
     render json: { success: true }
   end
