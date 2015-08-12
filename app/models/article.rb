@@ -15,12 +15,15 @@
 #  external_id  :string
 #  image_url    :string
 #  body         :text
+#  archived     :boolean          default(FALSE)
 #
 
 class Article < ActiveRecord::Base
   # also known as cps_id
   validates_uniqueness_of :external_id
   belongs_to :category
+
+  scope :fresh, -> { where(archived: false) }
 
   paginates_per 10
 end
