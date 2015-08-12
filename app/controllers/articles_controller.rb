@@ -6,7 +6,7 @@ class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.json
   def index
-    @articles = Article.all.page params[:page]
+    @articles = Article.fresh.page params[:page]
 
     # need to figure out which articles that the user
     # has read
