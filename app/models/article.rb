@@ -14,6 +14,7 @@
 #  category_id  :integer
 #  external_id  :string
 #  image_url    :string
+#  body         :text
 #
 
 class Article < ActiveRecord::Base

@@ -54,6 +54,6 @@ class JuicerWorker
       image = juice_article['image']['src'] if !juice_article['image'].nil?
       
       Article.create! category: category, title: juice_article['title'], external_id: juice_article['cps_id'], url: juice_article['url'],
-        image_url: image, summary: juice_article['description']
+        image_url: image, summary: juice_article['description'], body: juice_article['body']
     end
 end
