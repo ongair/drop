@@ -6,7 +6,7 @@ class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.json
   def index
-    @articles = Article.fresh.page params[:page]
+    @articles = Article.fresh.order(created_at: :desc).page params[:page]
 
     # need to figure out which articles that the user
     # has read
@@ -90,7 +90,7 @@ class ArticlesController < ApplicationController
 
     def log type
       # only log if we have a logged in user
-      if current_subscriber_logged_in?
+      if subscriber_signed_in?
         ArticleLog.create! article: @article, subscriber: @subscriber, log_type: type
       end
     end
