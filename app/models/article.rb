@@ -23,7 +23,7 @@ class Article < ActiveRecord::Base
   validates_uniqueness_of :external_id
   belongs_to :category
 
-  scope :fresh, -> { where.not(source: 'Twitter').where(archived: false) }
+  scope :fresh, -> { where(archived: false) }
   
   paginates_per 10
 end
