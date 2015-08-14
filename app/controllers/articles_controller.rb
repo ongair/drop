@@ -89,6 +89,9 @@ class ArticlesController < ApplicationController
     end
 
     def log type
-      ArticleLog.create! article: @article, subscriber: @subscriber, type: type
+      # only log if we have a logged in user
+      if current_subscriber_logged_in?
+        ArticleLog.create! article: @article, subscriber: @subscriber, log_type: type
+      end
     end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150812142719) do
+ActiveRecord::Schema.define(version: 20150814134243) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "name"
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 20150812142719) do
   create_table "article_logs", force: :cascade do |t|
     t.integer  "article_id"
     t.integer  "subscriber_id"
-    t.string   "type"
+    t.string   "log_type"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
   end

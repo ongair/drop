@@ -5,7 +5,7 @@
 #  id            :integer          not null, primary key
 #  article_id    :integer
 #  subscriber_id :integer
-#  type          :string
+#  log_type      :string
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #
