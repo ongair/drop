@@ -13,10 +13,10 @@
 # end
 
 namespace :articles do
-  desc 'Load articles from juicer'
+  desc "Load articles from juicer"
   task :load => :environment do
 
-    Category.all.each.do |category|
+    Category.all.each do |category|
       puts "Running Juicer for #{category.name}"
       JuicerWorker.perform_async(category.id)
     end 
