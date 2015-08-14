@@ -11,3 +11,14 @@
 # 		Article.create! title: "Trending in Nairobi, Kenya", metadata: trends.to_json
 # 	end
 # end
+
+namespace :articles do
+  desc 'Load articles from juicer'
+  task :load => :environment do
+
+    Category.all.each.do |category|
+      puts "Running Juicer for #{category.name}"
+      JuicerWorker.perform_async(category.id)
+    end 
+  end
+end
