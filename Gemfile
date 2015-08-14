@@ -26,6 +26,7 @@ gem 'sprockets', '2.8'
 gem 'kaminari'
 gem 'dragonfly'
 gem 'dragonfly-s3_data_store'
+gem 'rollbar'
 
 
 group :development, :test do
