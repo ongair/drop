@@ -27,6 +27,7 @@ gem 'kaminari'
 gem 'dragonfly'
 gem 'dragonfly-s3_data_store'
 gem 'rollbar'
+gem 'predictionio'
 
 
 group :development, :test do
