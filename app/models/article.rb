@@ -26,4 +26,9 @@ class Article < ActiveRecord::Base
   scope :fresh, -> { where(archived: false) }
   
   paginates_per 10
+
+  def image
+    url = image_url
+    url = "#{Rails.application.secrets.base_url}/placeholder_png" if url.blank? 
+  end
 end
