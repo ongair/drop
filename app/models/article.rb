@@ -29,6 +29,7 @@ class Article < ActiveRecord::Base
 
   def image
     url = image_url
-    url = "#{Rails.application.secrets.base_url}/placeholder_png" if url.blank? 
+    url = "#{Rails.application.secrets.base_url}/placeholder.png" if url.blank? 
+    url
   end
 end
