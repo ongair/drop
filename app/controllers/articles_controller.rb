@@ -1,7 +1,7 @@
 class ArticlesController < ApplicationController
   skip_before_action :verify_authenticity_token 
   before_action :set_article, only: [:show, :like, :read, :ignore]
-  before_filter :authenticate_subscriber!, only: [:like, :share, :ignore]
+  # before_filter :authenticate_subscriber!, only: [:like, :share, :ignore]
 
   # GET /articles
   # GET /articles.json
@@ -72,7 +72,7 @@ class ArticlesController < ApplicationController
   def search
 
     # TODO: Implement elastic search
-    @articles = []
+    @articles = Article.fresh.order(created_at: :desc)
 
     # TODO
     # Record search element and tie it to category metadata and sources
