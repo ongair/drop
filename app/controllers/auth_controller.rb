@@ -6,7 +6,12 @@ class AuthController < ApplicationController
   before_action :set_subscriber, except: [:log_in]
 
   # Ensure the subscriber is authenticated
-  before_filter :authenticate_subscriber!, except: [:log_in]
+  before_filter :authenticate_subscriber!, except: [:log_in, :status]
+
+  # Returns if a user is loged in
+  def status
+    render json: { logged_in: subscriber_signed_in? }
+  end
 
   # Works as both a sign in and sign up method
   # by taking the provider and token returned
