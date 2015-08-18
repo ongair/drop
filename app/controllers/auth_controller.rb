@@ -67,7 +67,8 @@ class AuthController < ApplicationController
         SubscriberCategory.create! subscriber: @subscriber, category: category
       end
 
-      redirect_to preferences_path, format: 'json'
+      # redirect_to preferences_path, format: 'json'
+      render json: { updated: true }, status: 200 
     end
   end
 
