@@ -6,8 +6,9 @@ class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.json
   def index
+    @page = params[:page] || 0
     @articles = Article.fresh.order(created_at: :desc).page params[:page]
-
+    @total_pages = @articles.total_pages
     # need to figure out which articles that the user
     # has read
   end
