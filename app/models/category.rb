@@ -14,6 +14,7 @@
 #  enabled     :boolean          default(TRUE)
 #  image_uid   :string
 #  image_name  :string
+#  logo        :text
 #
 
 class Category < ActiveRecord::Base
