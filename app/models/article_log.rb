@@ -14,7 +14,8 @@ class ArticleLog < ActiveRecord::Base
   belongs_to :article
   belongs_to :subscriber
 
-  scope :likes, -> { where(type: 'like') }
-  scope :shares, -> { where(type: 'share') }
-  scope :reads, -> { where(type: 'read') }
+  scope :likes, -> { where(log_type: 'like') }
+  scope :shares, -> { where(log_type: 'share') }
+  scope :reads, -> { where(log_type: 'read') }
+  scope :ingores, -> { where(log_type: 'ignore') }
 end
