@@ -7,3 +7,11 @@ The BBC Drop backend app. To run:
   rake db:migrate RAILS_ENV=development
   rails s
 ```
+
+To load articles:
+
+```
+  bundle install
+  rake articles:load
+  bundle exec sidekiq -d -L log/sidekiq.log -C config/sidekiq.yml
+```

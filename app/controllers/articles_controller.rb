@@ -6,11 +6,26 @@ class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.json
   def index
+
     @page = params[:page] || 0
-    @articles = Article.fresh.order(created_at: :desc).page params[:page]
+
+    if subscriber_signed_in?
+      # need to fetch articles from the users preferred categories
+
+      ids = current_subscriber.categories.collect { |c| c.id }
+      if !ids.empty?
+        @articles = Article.fresh.where(category_id: ids).order(created_at: :desc).page params[:page]
+      else  
+        @articles = Article.fresh.order(created_at: :desc).page params[:page]
+      end
+      # need to figure out which articles that the user
+      # has read
+
+    else
+      @articles = Article.fresh.order(created_at: :desc).page params[:page]      
+    end    
+
     @total_pages = @articles.total_pages
-    # need to figure out which articles that the user
-    # has read
   end
 
   # GET /articles/1

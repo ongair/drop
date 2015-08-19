@@ -16,6 +16,7 @@
 #  image_url    :string
 #  body         :text
 #  archived     :boolean          default(FALSE)
+#  rating       :integer
 #
 
 class Article < ActiveRecord::Base
