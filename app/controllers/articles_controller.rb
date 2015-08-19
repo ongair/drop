@@ -10,19 +10,10 @@ class ArticlesController < ApplicationController
     @page = params[:page] || 0
 
     if subscriber_signed_in?
-      # need to fetch articles from the users preferred categories
-
-      ids = current_subscriber.categories.collect { |c| c.id }
-      if !ids.empty?
-        @articles = Article.fresh.where(category_id: ids).order(created_at: :desc).page params[:page]
-      else  
-        @articles = Article.fresh.order(created_at: :desc).page params[:page]
-      end
-      # need to figure out which articles that the user
-      # has read
-
+      # need to fetch articles from the users preferred categories      
+      @articles = Article.get_articles current_subscriber, params[:page]
     else
-      @articles = Article.fresh.order(created_at: :desc).page params[:page]      
+      @articles = Article.fresh.page params[:page]      
     end    
 
     @total_pages = @articles.total_pages
