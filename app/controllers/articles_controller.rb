@@ -79,13 +79,10 @@ class ArticlesController < ApplicationController
   def search
 
     # TODO: Implement elastic search
-    @articles = Article.fresh.where('body like %?%', params[:term]).order(created_at: :desc)
+    @articles = Article.fresh.where("body like ?", "%#{params[:term]}%").order(created_at: :desc).page params[:page]
 
     # TODO
     # Record search element and tie it to category metadata and sources
-
-    # Render the index view
-    render view: 'index'
   end
 
 
