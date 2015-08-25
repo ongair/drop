@@ -55,5 +55,7 @@ class JuicerWorker
       
       Article.create! category: category, title: juice_article['title'], external_id: juice_article['cps_id'], url: juice_article['url'],
         image_url: image, summary: juice_article['description'], body: juice_article['body']
+
+      logger.info "Saved article: #{juice_article['title']}"
     end
 end
