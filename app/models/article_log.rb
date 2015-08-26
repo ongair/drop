@@ -8,6 +8,7 @@
 #  log_type      :string
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
+#  expired       :boolean          default(FALSE)
 #
 
 class ArticleLog < ActiveRecord::Base
@@ -18,4 +19,5 @@ class ArticleLog < ActiveRecord::Base
   scope :shares, -> { where(log_type: 'share') }
   scope :reads, -> { where(log_type: 'read') }
   scope :ingores, -> { where(log_type: 'ignore') }
+  scope :active, -> { where(expired: false) }
 end

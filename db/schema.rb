@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150819085010) do
+ActiveRecord::Schema.define(version: 20150826074416) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "name"
@@ -36,8 +36,9 @@ ActiveRecord::Schema.define(version: 20150819085010) do
     t.integer  "article_id"
     t.integer  "subscriber_id"
     t.string   "log_type"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.boolean  "expired",       default: false
   end
 
   add_index "article_logs", ["article_id"], name: "index_article_logs_on_article_id"
