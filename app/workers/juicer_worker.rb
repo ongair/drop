@@ -27,7 +27,7 @@ class JuicerWorker
     terms.each do |term|
       # get the first cut of articles
 
-      articles = BBC.get_articles term.strip, sources
+      articles = BBC.get_articles_by_sources term.strip, sources
       articles.each do |article|
 
         is_new = Article.find_by(external_id: article["cps_id"]).nil?
