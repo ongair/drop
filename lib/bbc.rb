@@ -20,6 +20,16 @@ class BBC
     end
   end
 
+  def self.get_articles_by_sources search_term, products    
+    begin
+      url = "#{Rails.application.secrets.juicer_api_url}articles?apikey=#{Rails.application.secrets.juicer_api_key}"
+      cut_off = 30.days.ago.utc
+      return HTTParty.get(url, query: { sources: products, q: search_term, published_after: cut_off })['hits']
+    rescue
+      raise "Could not retrieve articles"
+    end
+  end
+
 
   def self.get_similar_articles cps_id
     client = Juicer.new(Rails.application.secrets.juicer_api_key)

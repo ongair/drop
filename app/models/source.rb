@@ -12,4 +12,8 @@
 
 class Source < ActiveRecord::Base
   scope :active, -> { where(active: true) }
+
+  def self.to_ids
+    self.active.collect { |s| s.juicer_id }
+  end
 end
