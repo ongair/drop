@@ -10,6 +10,7 @@ class AuthController < ApplicationController
 
   # Returns if a user is loged in
   def status
+    logger.info "Checking login status: #{subscriber_signed_in?}"
     render json: { logged_in: subscriber_signed_in? }
   end
 
@@ -40,6 +41,9 @@ class AuthController < ApplicationController
         end
 
         sign_in(user)
+
+        logger.info "Signed in #{user.name}"
+
         render json: { created: is_new, success: true }, status: 200        
       else
         render json: { error: "No valid uid provided" }, status: 422  

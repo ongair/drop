@@ -1,4 +1,5 @@
 class CategoriesController < ApplicationController
+  skip_before_action :verify_authenticity_token
   before_action :set_category, only: [:show]
 
   # GET /categories
