@@ -1,4 +1,5 @@
 require 'httparty'
+require 'sanitize'
 class Candy
   include HTTParty
 
@@ -37,8 +38,10 @@ class Candy
     articles.each do |summary|
       if Article.find_by(external_id: summary[:id]).nil?        
         full = self.article(summary[:uri])
+        body = Sanitize.fragment(full['body']) 
         article = Article.create! external_id: summary[:id], title: summary[:title], 
           image_url: full['media']['images']['body'].first.last['href'],
+          body: body,
           summary: full['summary'], featured: true, created_at: DateTime.parse(full['lastPublished'])
       end
     end
