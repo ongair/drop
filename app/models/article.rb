@@ -17,6 +17,7 @@
 #  body         :text
 #  archived     :boolean          default(FALSE)
 #  rating       :integer
+#  featured     :boolean          default(FALSE)
 #
 
 class Article < ActiveRecord::Base
@@ -25,7 +26,7 @@ class Article < ActiveRecord::Base
   belongs_to :category
   has_many :article_logs
 
-  scope :fresh, -> { where(archived: false).order(created_at: :desc) }
+  scope :fresh, -> { where(archived: false, featured: false).order(created_at: :desc) }
   
   paginates_per 10
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150826074416) do
+ActiveRecord::Schema.define(version: 20150907091244) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "name"
@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 20150826074416) do
     t.text     "body"
     t.boolean  "archived",     default: false
     t.integer  "rating"
+    t.boolean  "featured",     default: false
   end
 
   add_index "articles", ["category_id"], name: "index_articles_on_category_id"
