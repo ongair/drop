@@ -27,6 +27,7 @@ class Article < ActiveRecord::Base
   has_many :article_logs
 
   scope :fresh, -> { where(archived: false, featured: false).order(created_at: :desc) }
+  scope :featured, -> { where(archived: false, featured: true).order(created_at: :desc) }
   
   paginates_per 10
 
