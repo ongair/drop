@@ -36,14 +36,20 @@ class BBC
     begin
       
       # get the ids of similar articles
-      similar_article_summaries_ids = client.similar_articles(cps_id).collect { |summary| summary['cps_id'] }
+      similar_articles = client.similar_articles(cps_id)
+      articles = []
 
-      # exclude already saved articles
-      similar_article_summaries_ids.reject! { |id| !Article.find_by(external_id: id).nil? }
+      if !similar_articles.nil?
+        similar_article_summaries_ids = similar_articles.collect { |summary| summary['cps_id'] }
 
-      # fetch full article metadata from juicer
-      return similar_article_summaries_ids.collect { |id| client.article(id) }
+        # exclude already saved articles
+        similar_article_summaries_ids.reject! { |id| !Article.find_by(external_id: id).nil? }
 
+        # fetch full article metadata from juicer
+        articles = similar_article_summaries_ids.collect { |id| client.article(id) }
+      end
+
+      return articles
     rescue => e
       # handle execption
       raise "Could not get similar articles : #{e}"
