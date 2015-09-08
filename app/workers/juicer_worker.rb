@@ -16,27 +16,19 @@ class JuicerWorker
 
     terms = category.keywords.split(',')
 
-    # the sources we will be searching
-    sources = Source.active.collect{ |s| s.juicer_id }
-
-    # does this category have specific sources e.g. Tech
-    category_sources = category.metadata.try(:split, ',')
-
-    sources = category_sources if !category_sources.blank?
-
     terms.each do |term|
       # get the first cut of articles
 
-      articles = BBC.get_articles_by_sources term.strip, sources
+      articles = BBC.articles term.strip
       articles.each do |article|
 
-        is_new = Article.find_by(external_id: article["cps_id"]).nil?
+        is_new = Article.find_by(external_id: article[:id]).nil?
         if is_new
           
           new_article = create_article(article, category)
           # find similar articles
 
-          similar_articles = BBC.get_similar_articles article['cps_id']
+          similar_articles = BBC.get_similar_articles new_article.id
           similar_articles.each do |art|
             create_article art, category
           end
@@ -49,13 +41,11 @@ class JuicerWorker
   private 
 
     # Save juicer article to the db
-    def create_article juice_article, category
-      # sometimes image url is nil
-      image = juice_article['image']['src'] if !juice_article['image'].nil?
+    def create_article juicer_article, category      
       
-      Article.create! category: category, title: juice_article['title'], external_id: juice_article['cps_id'], url: juice_article['url'],
-        image_url: image, summary: juice_article['description'], body: juice_article['body']
+      Article.create! category: category, title: juicer_article[:title], external_id: juicer_article[:id], url: juicer_article[:url],
+        image_url: juicer_article[:image], summary: juicer_article[:description], body: juicer_article[:body], published_date: juicer_article[:published]
 
-      logger.info "Saved article: #{juice_article['title']}"
+      # logger.info "Saved article: #{juice_article['title']}"
     end
 end
