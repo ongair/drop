@@ -2,22 +2,23 @@
 #
 # Table name: articles
 #
-#  id           :integer          not null, primary key
-#  source       :string
-#  title        :string
-#  summary      :text
-#  url          :string
-#  article_type :string
-#  metadata     :text
-#  created_at   :datetime
-#  updated_at   :datetime
-#  category_id  :integer
-#  external_id  :string
-#  image_url    :string
-#  body         :text
-#  archived     :boolean          default(FALSE)
-#  rating       :integer
-#  featured     :boolean          default(FALSE)
+#  id             :integer          not null, primary key
+#  source         :string
+#  title          :string
+#  summary        :text
+#  url            :string
+#  article_type   :string
+#  metadata       :text
+#  created_at     :datetime
+#  updated_at     :datetime
+#  category_id    :integer
+#  external_id    :string
+#  image_url      :string
+#  body           :text
+#  archived       :boolean          default(FALSE)
+#  rating         :integer
+#  featured       :boolean          default(FALSE)
+#  published_date :datetime
 #
 
 class Article < ActiveRecord::Base
@@ -26,8 +27,8 @@ class Article < ActiveRecord::Base
   belongs_to :category
   has_many :article_logs
 
-  scope :fresh, -> { where(archived: false, featured: false).order(created_at: :desc) }
-  scope :featured, -> { where(archived: false, featured: true).order(created_at: :desc) }
+  scope :fresh, -> { where(archived: false, featured: false).order(published_date: :desc) }
+  scope :featured, -> { where(archived: false, featured: true).order(published_date: :desc) }
   
   paginates_per 10
 

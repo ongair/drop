@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150907091244) do
+ActiveRecord::Schema.define(version: 20150908084822) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "name"
@@ -57,9 +57,10 @@ ActiveRecord::Schema.define(version: 20150907091244) do
     t.string   "external_id"
     t.string   "image_url"
     t.text     "body"
-    t.boolean  "archived",     default: false
+    t.boolean  "archived",       default: false
     t.integer  "rating"
-    t.boolean  "featured",     default: false
+    t.boolean  "featured",       default: false
+    t.datetime "published_date"
   end
 
   add_index "articles", ["category_id"], name: "index_articles_on_category_id"
