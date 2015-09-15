@@ -20,6 +20,7 @@ class BBC
       q: term,
       sources: sources,
       recent_first: 'yes',
+      lang: 'en',
       published_after: cut_off.beginning_of_day.strftime('%Y-%m-%dT%H:%M:%SZ')
     }
     HTTParty::HashConversions.to_params(hash)
@@ -50,6 +51,7 @@ class BBC
       'like-ids' => [id],
       'sources' => sources,
       'recent_first' => 'yes',
+      'lang' => 'en',
       'published_after' => cut_off.beginning_of_day.strftime('%Y-%m-%dT%H:%M:%SZ')
     }
 
