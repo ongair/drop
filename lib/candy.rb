@@ -33,16 +33,30 @@ class Candy
     article['results'].first
   end
 
+  def self.nested_hash_value(obj,key)
+    if obj.respond_to?(:key?) && obj.key?(key)
+      obj[key]
+    elsif obj.respond_to?(:each)
+      r = nil
+      obj.find{ |*a| r=nested_hash_value(a.last,key) }
+      r
+    end
+  end
+
   def self.load_featured_articles
     articles = self.articles
     articles.each do |summary|
       if Article.find_by(external_id: summary[:id]).nil?        
         full = self.article(summary[:uri])
         body = Sanitize.fragment(full['body']) 
+        
+        image_tag = full['media']['images']
+        image_url = self.nested_hash_value(image_tag, 'href')
+        
         article = Article.create! external_id: summary[:id], title: summary[:title], 
-          image_url: full['media']['images']['body'].first.last['href'],
+          image_url: image_url,
           body: body,
-          summary: full['summary'], featured: true, created_at: DateTime.parse(full['lastPublished'])
+          summary: full['summary'], featured: true, created_at: DateTime.parse(full['lastPublished']), published_date: DateTime.parse(full['lastPublished'])
       end
     end
   end
