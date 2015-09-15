@@ -14,8 +14,8 @@ Rails.application.routes.draw do
   post 'articles/:id/share' => 'articles#share', as: 'share_article'
   post 'articles/:id/read' => 'articles#read', as: 'read'
   post 'articles/:id/ignore' => 'articles#ignore', as: 'ignore'
-  post 'articles/search' => 'articles#search', as: 'search'
-  
+  post 'articles/search' => 'articles#search', as: 'search'  
+  get  'features' => 'articles#features', as: 'features'
 
   # authentication endpoint
   post "/auth/sign_in" => "auth#log_in", :as => "sign_in"

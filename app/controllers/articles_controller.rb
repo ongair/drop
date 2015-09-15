@@ -3,6 +3,11 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :like, :read, :ignore]
   # before_filter :authenticate_subscriber!, only: [:like, :share, :ignore]
 
+  def features
+    @page = params[:page] || 0
+    @articles = Article.featured.page params[:page]
+  end    
+
   # GET /articles
   # GET /articles.json
   def index
