@@ -3,7 +3,7 @@ namespace :articles do
   desc "Load articles from juicer"
   task :load => :environment do
 
-    Category.all.each do |category|
+    Category.enabled.each do |category|
       puts "Running Juicer for #{category.name}"
       JuicerWorker.perform_async(category.id)
     end 
