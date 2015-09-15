@@ -7,7 +7,7 @@ class CategoriesController < ApplicationController
   def index
     # TODO: Should we have an order index for display
     # Or use prediction.io
-    @categories = Category.all
+    @categories = Category.enabled
   end
 
   # GET /categories/1

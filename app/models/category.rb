@@ -22,6 +22,7 @@ class Category < ActiveRecord::Base
   
   has_many :articles
   dragonfly_accessor :image
+  scope :enabled, -> { where(enabled: true) }
 
   def image_url
     image.try(:url)
