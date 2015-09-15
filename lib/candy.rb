@@ -55,6 +55,7 @@ class Candy
         
         article = Article.create! external_id: summary[:id], title: summary[:title], 
           image_url: image_url,
+          category: Category.featured,
           body: body,
           summary: full['summary'], featured: true, created_at: DateTime.parse(full['lastPublished']), published_date: DateTime.parse(full['lastPublished'])
       end
