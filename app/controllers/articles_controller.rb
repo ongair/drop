@@ -13,12 +13,15 @@ class ArticlesController < ApplicationController
   def index
 
     @page = params[:page] || 0
+    @featured = Article.featured.first(4)          
 
     if subscriber_signed_in?
       # need to fetch articles from the users preferred categories      
       @articles = Article.get_articles current_subscriber, params[:page]
-    else
-      @articles = Article.fresh.page params[:page]      
+      @combined = @articles.concat(@featured).shuffle!
+    else      
+      @articles = Article.fresh.page params[:page]
+      @combined = @articles.concat(@featured).shuffle!
     end    
 
     @total_pages = @articles.total_pages
