@@ -27,4 +27,8 @@ class Category < ActiveRecord::Base
   def image_url
     image.try(:url)
   end
+
+  def self.featured
+    category = Category.find_or_create_by!(name: 'Featured', enabled: false)
+  end
 end
