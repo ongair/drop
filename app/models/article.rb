@@ -29,7 +29,8 @@ class Article < ActiveRecord::Base
 
   scope :fresh, -> { where(archived: false, featured: false).order(published_date: :desc) }
   scope :featured, -> { where(archived: false, featured: true).order(published_date: :desc) }
-  
+  scope :search, lambda { |term| where('lower(body) like ? or lower(title) like ?', "%#{term.downcase}%", "%#{term.downcase}%") }
+
   paginates_per 10
 
   def self.get_articles subscriber, page
