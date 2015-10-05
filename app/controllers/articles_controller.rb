@@ -88,6 +88,7 @@ class ArticlesController < ApplicationController
 
     # TODO: Implement elastic search
     @articles = Article.fresh.search(params[:term]).order(created_at: :desc).page params[:page]
+    @combined = @articles
 
     # TODO
     # Record search element and tie it to category metadata and sources
