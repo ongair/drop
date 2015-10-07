@@ -49,4 +49,14 @@ class Article < ActiveRecord::Base
     url = "#{Rails.application.secrets.base_url}/placeholder.png" if url.blank? 
     url
   end
+
+  def self.shorten_url article
+    if article.shortened_url.blank?
+      bitly = Bitly.new(Rails.application.secrets.bitly_login, Rails.application.secrets.bitly_key)
+      url = "#{Rails.application.secrets.base_url}#/articles/#{article.id}"
+      u = bitly.shorten(url)
+      article.shortened_url = u.short_url
+      article.save!
+    end
+  end
 end

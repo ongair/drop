@@ -58,6 +58,8 @@ class Candy
           category: Category.featured,
           body: body,
           summary: full['summary'], featured: true, created_at: DateTime.parse(full['lastPublished']), published_date: DateTime.parse(full['lastPublished'])
+
+        Article.shorten_url(article)
       end
     end
   end
