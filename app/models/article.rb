@@ -19,6 +19,7 @@
 #  rating         :integer
 #  featured       :boolean          default(FALSE)
 #  published_date :datetime
+#  shortened_url  :string
 #
 
 class Article < ActiveRecord::Base

@@ -13,4 +13,19 @@ namespace :articles do
   task :load_features => :environment do    
     Candy.load_featured_articles
   end
+
+  desc "Shorten articles"
+  task :shorten => :environment do
+    bitly = Bitly.new(Rails.application.secrets.bitly_login, Rails.application.secrets.bitly_key)
+    Article.fresh.each do |article|
+      if article.shortened_url.blank?
+        url = "#{Rails.application.secrets.base_url}#/articles/#{article.id}"
+        u = bitly.shorten(url)
+        article.shortened_url = u.short_url
+        article.save!
+
+        puts "Shortened #{url} to #{u.short_url}"
+      end
+    end
+  end
 end

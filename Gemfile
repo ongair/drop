@@ -29,6 +29,7 @@ gem 'dragonfly-s3_data_store'
 gem 'rollbar'
 gem 'predictionio'
 gem 'sanitize'
+gem 'bitly'
 
 
 group :development, :test do

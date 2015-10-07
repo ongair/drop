@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150908084822) do
+ActiveRecord::Schema.define(version: 20151007044016) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "name"
@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(version: 20150908084822) do
     t.integer  "rating"
     t.boolean  "featured",       default: false
     t.datetime "published_date"
+    t.string   "shortened_url"
   end
 
   add_index "articles", ["category_id"], name: "index_articles_on_category_id"
