@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151007044016) do
+ActiveRecord::Schema.define(version: 20151104094457) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "name"
@@ -75,10 +75,11 @@ ActiveRecord::Schema.define(version: 20151007044016) do
     t.text     "metadata"
     t.text     "description"
     t.integer  "parent_id"
-    t.boolean  "enabled",     default: true
+    t.boolean  "enabled",      default: true
     t.string   "image_uid"
     t.string   "image_name"
     t.text     "logo"
+    t.string   "subdirectory"
   end
 
   add_index "categories", ["parent_id"], name: "index_categories_on_parent_id"

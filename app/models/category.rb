@@ -2,19 +2,20 @@
 #
 # Table name: categories
 #
-#  id          :integer          not null, primary key
-#  name        :string
-#  source      :string
-#  keywords    :text
-#  created_at  :datetime
-#  updated_at  :datetime
-#  metadata    :text
-#  description :text
-#  parent_id   :integer
-#  enabled     :boolean          default(TRUE)
-#  image_uid   :string
-#  image_name  :string
-#  logo        :text
+#  id           :integer          not null, primary key
+#  name         :string
+#  source       :string
+#  keywords     :text
+#  created_at   :datetime
+#  updated_at   :datetime
+#  metadata     :text
+#  description  :text
+#  parent_id    :integer
+#  enabled      :boolean          default(TRUE)
+#  image_uid    :string
+#  image_name   :string
+#  logo         :text
+#  subdirectory :string
 #
 
 class Category < ActiveRecord::Base
