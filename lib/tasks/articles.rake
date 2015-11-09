@@ -30,7 +30,7 @@ namespace :articles do
   end
 
   desc "Patch categories"
-  test :patch_categories => :environment do
+  task :patch_categories => :environment do
     Category.where(name: 'Sports').update_all(subdirectory: 'sport')
     Category.where(name: 'Entertainment').update_all(subdirectory: 'entertainment')
     Category.where(name: 'Science').update_all(subdirectory: 'science,technology')
