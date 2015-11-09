@@ -18,10 +18,10 @@ class ArticlesController < ApplicationController
     if subscriber_signed_in?
       # need to fetch articles from the users preferred categories      
       @articles = Article.get_articles current_subscriber, params[:page]
-      @combined = @featured.concat(@articles)
+      @combined = @articles.concat(@featured)
     else      
       @articles = Article.fresh.page params[:page]
-      @combined = @featured.concat(@articles)
+      @combined = @articles.concat(@featured)
     end    
 
     @total_pages = @articles.total_pages
