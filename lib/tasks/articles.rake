@@ -29,6 +29,7 @@ namespace :articles do
     end
   end
 
+  desc "Patch categories"
   test :patch_categories => :environment do
     Category.where(name: 'Sports').update_all(subdirectory: 'sport')
     Category.where(name: 'Entertainment').update_all(subdirectory: 'entertainment')
