@@ -32,4 +32,17 @@ class Category < ActiveRecord::Base
   def self.featured
     category = Category.find_or_create_by!(name: 'Featured', enabled: false)
   end
+
+  def self.category_from_url url
+    category = nil
+    Category.enabled.where.not(subdirectory: nil).each do |cat|      
+      cat.subdirectory.split(',').each do |dir|
+        filter = /bbc.co.uk\/#{Regexp.quote(dir)}/
+        if url.match(filter) && category.nil?
+          category = cat
+        end
+      end
+    end
+    return category
+  end
 end

@@ -41,8 +41,10 @@ class JuicerWorker
   private 
 
     # Save juicer article to the db
-    def create_article juicer_article, category      
+    def create_article juicer_article, original      
       
+      category = Category.category_from_url(url) || original      
+
       article = Article.create! category: category, title: juicer_article[:title], external_id: juicer_article[:id], url: juicer_article[:url],
         image_url: juicer_article[:image], summary: juicer_article[:description], body: juicer_article[:body], published_date: juicer_article[:published]
 
