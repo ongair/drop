@@ -37,7 +37,7 @@ class Category < ActiveRecord::Base
     category = nil
     Category.enabled.where.not(subdirectory: nil).each do |cat|      
       cat.subdirectory.split(',').each do |dir|
-        filter = /bbc.co.uk\/#{Regexp.quote(dir)}/
+        filter = /#{Regexp.quote(dir)}/
         if url.match(filter) && category.nil?
           category = cat
         end
