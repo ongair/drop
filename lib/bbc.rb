@@ -3,7 +3,7 @@ class BBC
   include HTTParty
 
   def self.articles term, sources=nil, cut_off=nil
-    url = "#{Rails.application.secrets.juicer_api_url}articles?apikey=#{Rails.application.secrets.juicer_api_key}&"
+    url = "#{Rails.application.secrets.juicer_api_url}articles?api_key=#{Rails.application.secrets.juicer_api_key}&"
     url += self.build_params term, sources, cut_off
 
     Rails.logger.debug "Looking for #{term}"
@@ -44,7 +44,7 @@ class BBC
   end
 
   def self.get_similar_articles id, sources=nil
-    url = "#{Rails.application.secrets.juicer_api_url}articles?apikey=#{Rails.application.secrets.juicer_api_key}&"
+    url = "#{Rails.application.secrets.juicer_api_url}articles?api_key=#{Rails.application.secrets.juicer_api_key}&"
     sources ||= Source.to_ids
     cut_off = 1.year.ago.utc
     hash ={
