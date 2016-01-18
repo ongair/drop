@@ -9,7 +9,7 @@ set :bundle_flags, "--deployment"
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
 
-set :deploy_to, '/home/deploy/apps/drop'
+set :deploy_to, '/home/ubuntu/apps/drop'
 
 set :linked_files, %w{config/database.yml config/secrets.yml config/sidekiq.yml  production/assets/manifest.yml}
 set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
@@ -18,6 +18,13 @@ set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/sys
 set :keep_releases, 5
 
 set :assets_prefix, "production/assets"
+
+set :pty, true
+set :ssh_options, {
+  forward_agent: true,
+  auth_methods: ["publickey"],
+  keys: ["drop.pem"]
+}
 
 namespace :deploy do
   desc 'Restart application'
