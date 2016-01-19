@@ -60,12 +60,15 @@ class Article < ActiveRecord::Base
     end
   end
 
-  def self.create_from_juicer juicer_article, original=nil
+  def self.create_from_juicer juicer_article, original=nil, featured=false
     category = Category.category_from_url(juicer_article[:url]) || original      
 
-    article = Article.create! category: category, title: juicer_article[:title], external_id: juicer_article[:id], url: juicer_article[:url],
-      image_url: juicer_article[:image], summary: juicer_article[:description], body: juicer_article[:body], published_date: juicer_article[:published]
+    if Article.find_by(external_id: juicer_article[:id]).nil?
+      article = Article.create! category: category, title: juicer_article[:title], external_id: juicer_article[:id], url: juicer_article[:url],
+        image_url: juicer_article[:image], summary: juicer_article[:description], body: juicer_article[:body], published_date: juicer_article[:published],
+        featured: featured
 
-    Article.shorten_url(article)
+      Article.shorten_url(article)
+    end
   end
 end
