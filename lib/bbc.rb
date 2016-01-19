@@ -43,6 +43,24 @@ class BBC
     end
   end
 
+  def self.get_article id 
+    url = "#{Rails.application.secrets.juicer_api_url}articles/#{id}?api_key=#{Rails.application.secrets.juicer_api_key}"
+    result =  get(url)
+    if !result['id'].nil?
+      return {
+        description: result['description'],
+        title: result['title'],
+        id: result['id'],
+        image: result['image'],
+        body: result['body'],
+        published: result['published'],
+        url: result['url']
+      }
+    else
+      return nil
+    end
+  end
+
   def self.get_similar_articles id, sources=nil
     url = "#{Rails.application.secrets.juicer_api_url}articles?api_key=#{Rails.application.secrets.juicer_api_key}&"
     sources ||= Source.to_ids

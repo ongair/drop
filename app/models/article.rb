@@ -59,4 +59,13 @@ class Article < ActiveRecord::Base
       article.save!
     end
   end
+
+  def self.create_from_juicer juicer_article, original=nil
+    category = Category.category_from_url(juicer_article[:url]) || original      
+
+    article = Article.create! category: category, title: juicer_article[:title], external_id: juicer_article[:id], url: juicer_article[:url],
+      image_url: juicer_article[:image], summary: juicer_article[:description], body: juicer_article[:body], published_date: juicer_article[:published]
+
+    Article.shorten_url(article)
+  end
 end

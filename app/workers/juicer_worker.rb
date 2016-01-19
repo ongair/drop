@@ -25,12 +25,13 @@ class JuicerWorker
         is_new = Article.find_by(external_id: article[:id]).nil?
         if is_new
           
-          new_article = create_article(article, category)
+          new_article = Article.create_from_juicer(article, category)
           # find similar articles
 
           similar_articles = BBC.get_similar_articles new_article.id
           similar_articles.each do |art|
-            create_article art, category
+            # create_article art, category
+            Article.create_from_juicer(art, category)
           end
         end
 

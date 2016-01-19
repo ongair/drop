@@ -1,5 +1,7 @@
 require 'httparty'
 require 'sanitize'
+require 'digest/sha1'
+
 class Candy
   include HTTParty
 
@@ -47,19 +49,28 @@ class Candy
     articles = self.articles
     articles.each do |summary|
       if Article.find_by(external_id: summary[:id]).nil?        
-        full = self.article(summary[:uri])
-        body = Sanitize.fragment(full['body']) 
-        
-        image_tag = full['media']['images']
-        image_url = self.nested_hash_value(image_tag, 'href')
-        
-        article = Article.create! external_id: summary[:id], title: summary[:title], 
-          image_url: image_url,
-          category: Category.featured,
-          body: body,
-          summary: full['summary'], featured: true, created_at: DateTime.parse(full['lastPublished']), published_date: DateTime.parse(full['lastPublished'])
+        # full = self.article(summary[:uri])
 
-        Article.shorten_url(article)
+        # body = Sanitize.fragment(full['body']) 
+        
+        # image_tag = full['media']['images']
+        # image_url = self.nested_hash_value(image_tag, 'href')
+        
+        # article = Article.create! external_id: summary[:id], title: summary[:title], 
+        #   image_url: image_url,
+        #   category: Category.featured,
+        #   body: body,
+        #   summary: full['summary'], featured: true, created_at: DateTime.parse(full['lastPublished']), published_date: DateTime.parse(full['lastPublished'])
+
+        # Article.shorten_url(article)
+
+        url = "#{Rails.application.secrets.bbc_base_url}#{summary[:uri]}"
+        juicer_id = Digest::SHA1.hexdigest url
+
+        juicer_article = BBC.get_article juicer_id
+        if !juicer_article.nil?
+          article = Article.create_from_juicer juicer_article, Category.featured 
+        end
       end
     end
   end
