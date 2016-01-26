@@ -69,6 +69,7 @@ class Article < ActiveRecord::Base
         featured: featured
 
       Article.shorten_url(article)
+      return article
     end
   end
 end
