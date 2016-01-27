@@ -46,10 +46,13 @@ class Candy
   end
 
   def self.load_featured_articles
+    Rails.logger.info "Loading featured articles"
     articles = self.articles
     articles.each do |summary|      
       url = "#{Rails.application.secrets.bbc_base_url}#{summary[:uri]}"
       juicer_id = Digest::SHA1.hexdigest url
+
+      Rails.logger.info "Checking juicer for url #{url}"
 
       juicer_article = BBC.get_article juicer_id
       if !juicer_article.nil?
