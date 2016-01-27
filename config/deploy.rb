@@ -7,7 +7,7 @@ set :bundle_flags, "--deployment"
 
 
 # Default branch is :master
-# ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
+ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
 
 set :deploy_to, '/home/ubuntu/apps/drop'
 
